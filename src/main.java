@@ -21,11 +21,12 @@ public class main extends BasicGame {
 	private static int anchoVentana = 600;
 	private int radioPJ = 10;
 	private boolean run = false;
-	private character pj = new character(anchoVentana/2, altoVentana/2, radioPJ, 0.5f);
+	private Character pj = new Character(anchoVentana/2, altoVentana/2, radioPJ, 0.3f);
 	
 	private LinkedList<Bullet> bullets;
+	private LinkedList<EnemyWolf> wolfs;
+	
 	private static int fireRate = 250;
-	private ArrayList <Shape> arrayBloques=new ArrayList <Shape> ();
 	
 	public main(String title) {
 		super(title);
@@ -44,40 +45,29 @@ public class main extends BasicGame {
 		
 		pj.render(gc, g, pj);
 		
-		for (int i=0; i<arrayBloques.size(); i++){
-			g.setColor(new Color(0, 255, 0));
-			if (pj.bola.intersects(arrayBloques.get(i))) g.setColor(new Color(255, 0, 0));
-			g.fillRect(arrayBloques.get(i).getX(), arrayBloques.get(i).getY(), arrayBloques.get(i).getWidth(), arrayBloques.get(i).getHeight());
-		}
-		
 		for (Bullet b : bullets) {
 			b.render(gc,g);
+		}
+		
+		for (EnemyWolf w : wolfs) {
+			w.render(gc, g);
 		}
 	}
 
 	@Override
 	public void init(GameContainer gc) throws SlickException {
 		bullets = new LinkedList<Bullet> ();
+		wolfs= new LinkedList<EnemyWolf> ();
 	}
 
 	@Override
 	public void update(GameContainer gc, int delta) throws SlickException {
 		
 		Input input = gc.getInput();
-		if (!run) startGame();
 		
-		pj.moveAndCollide(gc, arrayBloques, delta, pj, altoVentana, anchoVentana, radioPJ);
+		createBicho();
 		
-		//balas
-		/*Iterator<Bullet> i = bullets.iterator();
-		while(i.hasNext()){
-			Bullet b = i.next();
-				if (b.isActive()) {
-					b.update(delta);
-				} else {
-					i.remove();
-				}
-		}*/
+		pj.moveAndCollide(gc, delta, pj, altoVentana, anchoVentana, radioPJ);
 		
 		for (int i = 0; i < bullets.size(); i++) {
 			if (bullets.get(i).isActive()) {
@@ -87,21 +77,25 @@ public class main extends BasicGame {
 			}
 		}
 		
+		for (int i=0; i < wolfs.size(); i++) {
+			if (wolfs.get(i).isAlive()) {
+				wolfs.get(i).update(pj, delta);
+			} else {
+				wolfs.remove(i);
+			}
+		}
+		
 		if (input.isKeyPressed(Input.KEY_SPACE)){
 			bullets.add(new Bullet( new Vector2f(pj.bola.getCenterX(), pj.bola.getCenterY()), new Vector2f(input.getMouseX(), input.getMouseY()) ) );
 		}
 		
 	}
 	
-	private void startGame(){
-		crearBloques();
-		run = true;
+	public void createBicho() {
+		//if (wolfs.size() <= 0) {
+			wolfs.add(new EnemyWolf(new Vector2f(100, 100), 20, 20, 0.0f));
+		//}
+		
 	}
 	
-	private void crearBloques(){
-		arrayBloques.clear();
-		arrayBloques.add( new Rectangle (1, 1, 50, 50)); 
-		arrayBloques.add( new Rectangle (300, 250, 100, 10));
-		arrayBloques.add( new Rectangle (400, 300, 50, 50));
-	}
 }
