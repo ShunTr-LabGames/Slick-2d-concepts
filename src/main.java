@@ -79,6 +79,7 @@ public class main extends BasicGame {
 		
 		for (int i=0; i < wolfs.size(); i++) {
 			if (wolfs.get(i).isAlive()) {
+				wolfs.get(i).checkCollisionWithBullets(bullets);
 				wolfs.get(i).update(pj, delta);
 			} else {
 				wolfs.remove(i);
@@ -92,9 +93,9 @@ public class main extends BasicGame {
 	}
 	
 	public void createBicho() {
-		//if (wolfs.size() <= 0) {
+		if (wolfs.size() <= 0) {
 			wolfs.add(new EnemyWolf(new Vector2f(100, 100), 20, 20, 0.0f));
-		//}
+		}
 		
 	}
 	

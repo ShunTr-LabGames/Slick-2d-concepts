@@ -59,18 +59,14 @@ public class EnemyWolf {
 	}
 	
 	public void update(Character player, int delta) {
-		Vector2f enemyPosition = new Vector2f(player.getX(), player.getY());
-		Vector2f dir =  new Vector2f( (player.getX()- enemyPosition.getX()) / enemyPosition.distance(new Vector2f(player.getX(), player.getY())),
-				player.getY() - enemyPosition.getY() / enemyPosition.distance(new Vector2f(player.getX(), player.getY())) );
-		System.out.println("Antes");
-		System.out.println(pos.getX());
-		System.out.println(pos.getY());
-		pos.setLocation(pos.getX() + (dir.getX() * delta * 0.01f), pos.getY() + (dir.getY() * delta * 0.000001f));
-		//pos.setY(pos.getY() + (dir.getY() * delta * 0.000001f));
-		System.out.println("Despues");
-		System.out.println(dir.getX());
-		System.out.println(dir.getY());
-
+		Vector2f enemyPosition = new Vector2f(pos.getX(), pos.getY());
+		Vector2f playerVector = new Vector2f(player.getX(), player.getY());
+		
+		Vector2f dir =  new Vector2f( player.getX() - enemyPosition.getX() / enemyPosition.distance(playerVector),
+									  player.getY() - enemyPosition.getY() / enemyPosition.distance(playerVector) );
+		
+		pos.setLocation(pos.getX() + (dir.getX() * delta * 0.0001f), pos.getY() + (dir.getY() * delta * 0.0001f));
+		
 	}
 	
 	public void checkCollisionWithBullets(LinkedList<Bullet> bullets) {
