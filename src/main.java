@@ -43,7 +43,9 @@ public class main extends BasicGame {
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		
-		pj.render(gc, g, pj);
+		if (pj.alive()) {
+			pj.render(gc, g, pj);
+		}
 		
 		for (Bullet b : bullets) {
 			b.render(gc,g);
@@ -68,6 +70,7 @@ public class main extends BasicGame {
 		createBicho();
 		
 		pj.moveAndCollide(gc, delta, pj, altoVentana, anchoVentana, radioPJ);
+		pj.collideWithEnemy(wolfs);
 		
 		for (int i = 0; i < bullets.size(); i++) {
 			if (bullets.get(i).isActive()) {
@@ -94,7 +97,7 @@ public class main extends BasicGame {
 	
 	public void createBicho() {
 		if (wolfs.size() <= 0) {
-			wolfs.add(new EnemyWolf(new Vector2f(100, 100), 20, 20, 0.0f));
+			wolfs.add(new EnemyWolf(new Vector2f(100, 100), 20, 20, 0.001f));
 		}
 		
 	}

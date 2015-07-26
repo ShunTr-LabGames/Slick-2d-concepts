@@ -10,7 +10,7 @@ import org.newdawn.slick.geom.Vector2f;
 
 public class EnemyWolf {
 	
-	private Shape pos;
+	public Shape pos;
 	private int ancho;
 	private int alto;
 	private boolean alive = true;
@@ -65,7 +65,8 @@ public class EnemyWolf {
 		Vector2f dir =  new Vector2f( player.getX() - enemyPosition.getX() / enemyPosition.distance(playerVector),
 									  player.getY() - enemyPosition.getY() / enemyPosition.distance(playerVector) );
 		
-		pos.setLocation(pos.getX() + (dir.getX() * delta * 0.0001f), pos.getY() + (dir.getY() * delta * 0.0001f));
+		float vel = delta * velMovement;
+		pos.setLocation(pos.getX() + (dir.getX() * vel), pos.getY() + (dir.getY() * vel));
 		
 	}
 	

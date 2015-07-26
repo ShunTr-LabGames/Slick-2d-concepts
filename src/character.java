@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -11,6 +12,7 @@ import org.newdawn.slick.geom.Shape;
 public class Character {
 	public Shape bola;
 	public float vel;
+	private boolean alive = true;
 	
 	public Character (float x,  float y, float radio, float vel) {
 		this.bola = new Circle(x, y, radio);
@@ -46,5 +48,18 @@ public class Character {
 		if (gc.getInput().isKeyDown(gc.getInput().KEY_D) && pj.bola.getX() < anchoVentana - radioPJ*2) {
 			pj.bola.setX(pj.bola.getX() + pj.vel * delta);
 		}
+	}
+	
+	public void collideWithEnemy(LinkedList<EnemyWolf> wolfs) {
+
+		for (int i=0; i<wolfs.size(); i++) {
+			if (wolfs.get(i).pos.intersects(bola)){
+				alive=false;
+			}
+		}
+	}
+	
+	public boolean alive() {
+		return alive;
 	}
 }
