@@ -90,14 +90,14 @@ public class main extends BasicGame {
 		}
 		
 		if (input.isKeyPressed(Input.KEY_SPACE)){
-			bullets.add(new Bullet( new Vector2f(pj.bola.getCenterX(), pj.bola.getCenterY()), new Vector2f(input.getMouseX(), input.getMouseY()) ) );
+			bullets.add(new Bullet( new Vector2f(pj.bola.getX(), pj.bola.getY()), new Vector2f(input.getMouseX(), input.getMouseY()) ) );
 		}
 		
 	}
 	
 	public void createBicho() {
 		if (wolfs.size() <= 0) {
-			wolfs.add(new EnemyWolf(new Vector2f(100, 100), 20, 20, 0.001f));
+			wolfs.add(new EnemyWolf(new Vector2f(300, 100), 20, 20, 0.1f));
 		}
 		
 	}

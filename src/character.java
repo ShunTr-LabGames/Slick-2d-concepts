@@ -29,7 +29,7 @@ public class Character {
 	
 	public void render(GameContainer gc, Graphics g, Character pj ) throws SlickException {
 		g.setColor(new Color(255, 255, 255));
-		g.fillOval(pj.bola.getX(), pj.bola.getY(), 20, 20);
+		g.fillOval(pj.bola.getX() - 10, pj.bola.getY() - 10, 20, 20);
 	}
 	
 	public void moveAndCollide(GameContainer gc, int delta, Character pj, int altoVentana, int anchoVentana, int radioPJ) {

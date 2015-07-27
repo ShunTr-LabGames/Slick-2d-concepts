@@ -59,12 +59,10 @@ public class EnemyWolf {
 	}
 	
 	public void update(Character player, int delta) {
-		Vector2f enemyPosition = new Vector2f(pos.getX(), pos.getY());
-		Vector2f playerVector = new Vector2f(player.getX(), player.getY());
+
+		Vector2f dir = new Vector2f( player.getX() - pos.getX(), player.getY() - pos.getY());
 		
-		Vector2f dir =  new Vector2f( player.getX() - enemyPosition.getX() / enemyPosition.distance(playerVector),
-									  player.getY() - enemyPosition.getY() / enemyPosition.distance(playerVector) );
-		
+		dir.normalise();
 		float vel = delta * velMovement;
 		pos.setLocation(pos.getX() + (dir.getX() * vel), pos.getY() + (dir.getY() * vel));
 		
