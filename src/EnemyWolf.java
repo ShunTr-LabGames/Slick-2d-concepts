@@ -74,6 +74,7 @@ public class EnemyWolf {
 			
 			if (bullet.intersects(pos)){
 				alive=false;
+				//b.setActive(false);
 			}
 		}
 	}

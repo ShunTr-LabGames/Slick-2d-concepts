@@ -29,6 +29,10 @@ public class Bullet {
 		return pos.getY();
 	}
 	
+	public void setActive(boolean alive) {
+		active = alive;
+	}
+	
 	public void update(int  t) {
 		if (active){
 			pos.set(pos.getX()+ aimVector.getX()*t, pos.getY() + aimVector.getY()*t);

@@ -1,10 +1,12 @@
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Random;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
+import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -20,7 +22,6 @@ public class main extends BasicGame {
 	private static int altoVentana = 400;
 	private static int anchoVentana = 600;
 	private int radioPJ = 10;
-	private boolean run = false;
 	private Character pj = new Character(anchoVentana/2, altoVentana/2, radioPJ, 0.3f);
 	
 	private LinkedList<Bullet> bullets;
@@ -53,6 +54,12 @@ public class main extends BasicGame {
 		
 		for (EnemyWolf w : wolfs) {
 			w.render(gc, g);
+		}
+		
+		if (!pj.alive()) {
+			Random rand = new Random ();
+			g.setColor(new Color(rand.nextInt((255) + 1), rand.nextInt((255) + 1), rand.nextInt((255) + 1)));
+			g.drawString("GAME OVER", anchoVentana/2 - 35, altoVentana/2 - 10);
 		}
 	}
 
@@ -89,15 +96,16 @@ public class main extends BasicGame {
 			}
 		}
 		
-		if (input.isKeyPressed(Input.KEY_SPACE)){
+		if (input.isKeyPressed(Input.KEY_SPACE) && pj.alive()){
 			bullets.add(new Bullet( new Vector2f(pj.bola.getX(), pj.bola.getY()), new Vector2f(input.getMouseX(), input.getMouseY()) ) );
 		}
 		
 	}
-	
+
 	public void createBicho() {
 		if (wolfs.size() <= 0) {
-			wolfs.add(new EnemyWolf(new Vector2f(300, 100), 20, 20, 0.1f));
+			Random rand = new Random ();
+			wolfs.add(new EnemyWolf(new Vector2f(rand.nextInt((anchoVentana) + 1), rand.nextInt((altoVentana) + 1)), 20, 20, 0.1f));
 		}
 		
 	}
